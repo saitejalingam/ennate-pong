@@ -1,0 +1,17 @@
+---
+serviceId: ennate-pong
+
+common:
+  headers: &apiHeaders
+    - name: x-kernel-app
+      value: ennate-app
+
+environments:
+  dev:
+    domains:
+    - pong.ennate.io
+    ssl: true
+    proxies:
+    - match: /
+      target: http://ennate-pong/
+      mode: http
