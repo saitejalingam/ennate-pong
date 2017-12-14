@@ -1,0 +1,31 @@
+.home {
+    border-top: .5rem solid white;
+    
+    .slot-title {
+        text-decoration: none;
+        font-size: 0.9rem;
+        color: darkslategrey;    
+
+        .count {
+            float: right;
+        }
+    }
+
+    .reservation-summary {
+        color: darkslategray;
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            border: 1px solid gold;
+            width: 100%;
+            resize: none;
+        }
+    }
+
+    .msg {
+        color: gainsboro;
+    }
+}

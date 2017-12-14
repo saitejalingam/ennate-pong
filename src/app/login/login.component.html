@@ -1,0 +1,36 @@
+<div class="login">
+    <div class="row m-0">
+        <div class="col-sm-12 col-md-4">
+            <div class="terms-of-use mt-4">
+                <h5>Terms of use</h5>
+                <p>by logging in you agree to respect the rules set by this reservation system; and to surrender the ping pong
+                    table in room 348 to the rightful party that reserves time through it</p>
+            </div>
+            <button class="btn btn-light btn-lg btn-block mt-4">login</button>
+        </div>
+
+        <div class="col-sm-12 col-md-8">
+            <h5 class="ml-2 mt-4">Today's Reservations</h5>
+            <div class="ml-2 msg" *ngIf="allReservations?.length == 0">No reservations have been made today.</div>
+            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                <ngb-panel *ngFor="let reservation of allReservations | async">
+                    <ng-template ngbPanelTitle>
+                        <span class="slot-title">
+                    <b>{{ formatSlot(reservation.slot) }}</b>
+                </span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="mb-2 reservation-summary">
+                            <label class="mb-0">reserved by:</label>
+                            <p>{{ reservation.firstName + ' ' + reservation.lastName }}</p>
+                            <div *ngIf="reservation.slot.note">
+                                <label class="mb-0">note:</label>
+                                <p>{{ reservation.slot.note }}</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+</div>

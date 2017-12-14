@@ -1,0 +1,41 @@
+.login {
+    border-top: 0.5rem solid white;
+
+    .terms-of-use {
+        h5 {
+            font-size: 0.75rem;
+        }
+
+        p {
+            font-size: 0.5rem;
+        }
+    }
+    
+     .slot-title {
+        text-decoration: none;
+        font-size: 0.9rem;
+        color: darkslategrey;    
+
+        .count {
+            float: right;
+        }
+    }
+
+    .reservation-summary {
+        color: darkslategray;
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            border: 1px solid gold;
+            width: 100%;
+            resize: none;
+        }
+    }
+
+    .msg {
+        color: gainsboro;
+    }
+}

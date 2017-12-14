@@ -1,0 +1,84 @@
+<div class="home pb-3">
+    <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+    <div class="m-0 row">
+        <div class="col-sm-12 col-md-5">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="ml-2 mt-4">My Reservations</h5>
+                    <div class="ml-2 msg" *ngIf="myReservations?.length == 0">You've made no reservations today.</div>
+                    <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                        <ngb-panel *ngFor="let reservation of myReservationsDocs">
+                            <ng-template ngbPanelTitle>
+                                <span class="slot-title">
+                                    <b>{{ formatSlot(reservation.payload.doc.data().slot) }}</b>
+                                </span>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div class="mb-2 reservation-summary">
+                                    <label class="mb-0">note:</label>
+                                    <p>{{ reservation.payload.doc.data().slot.note || 'no note added' }}</p>
+                                </div>
+                                <button class="btn btn-danger btn-block" (click)="cancelReservation(reservation, cancelModal)">Cancel Reservation</button>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </div>
+
+                <div class="col-12">
+                    <h5 class="ml-2 mt-4">All Reservations</h5>
+                    <div class="ml-2 msg" *ngIf="allReservations?.length == 0">No reservations have been made today.</div>
+                    <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                        <ngb-panel *ngFor="let reservation of allReservations">
+                            <ng-template ngbPanelTitle>
+                                <span class="slot-title">
+                                    <b>{{ formatSlot(reservation.slot) }}</b>
+                                </span>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div class="mb-2 reservation-summary">
+                                    <label class="mb-0">reserved by:</label>
+                                    <p>{{ reservation.firstName + ' ' + reservation.lastName }}</p>
+                                    <div *ngIf="reservation.slot.note">
+                                        <label class="mb-0">note:</label>
+                                    <p>{{ reservation.slot.note }}</p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #cancelModal>
+            <div class="modal-body">
+                <p>Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="this.dismissCancel()">Close</button>
+                <button type="button" class="btn btn-danger" (click)="this.confirmCancel()">Confirm</button>
+            </div>
+        </ng-template>
+
+        <div class="col-sm-12 col-md-7">
+            <h5 class="ml-2 mt-4">Available Slots</h5>
+            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                <ngb-panel *ngFor="let slot of timeSlots">
+                    <ng-template ngbPanelTitle>
+                        <span class="slot-title">
+                            <b>{{ formatSlot(slot) }}</b>
+                        </span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="mb-2 reservation-summary">
+                            <label class="mb-0">note:</label>
+                            <textarea class="p-2" [(ngModel)]="slot.note"></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-block" (click)="reserveSlot(slot)">Reserve Slot</button>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+</div>
