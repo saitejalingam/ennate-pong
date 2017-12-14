@@ -4,7 +4,7 @@ serviceId: ennate-pong
 environments:
   dev:
     domains:
-    - pong.ennate.io
+    - pong.egen.io
     ssl: true
     proxies:
     - match: /

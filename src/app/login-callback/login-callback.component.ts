@@ -13,6 +13,7 @@ export class LoginCallbackComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.adalService.handleCallback();
         if (!this.adalService.userInfo) {
             this.router.navigate(['login']);
         } else {
