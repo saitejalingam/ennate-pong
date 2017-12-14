@@ -2,11 +2,11 @@
 serviceId: ennate-pong
 
 environments:
-  prod:
+  dev:
     domains:
     - pong.ennate.io
     ssl: true
     proxies:
     - match: /
-      target: http://prod-ennate-pong/
+      target: http://ennate-pong/
       mode: http
