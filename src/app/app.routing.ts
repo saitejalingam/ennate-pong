@@ -5,10 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { LoginCallbackComponent } from './login-callback/login-callback.component';
+
+import { AuthenticationGuard } from './providers/authguard.service';
+import { OAuthCallbackHandler } from './login-callback/authcallback-guard.service';
 
 const routes: Routes = [
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'login-callback', component: LoginCallbackComponent, canActivate: [OAuthCallbackHandler] }, 
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

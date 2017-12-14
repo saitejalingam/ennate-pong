@@ -1,5 +1,6 @@
+import { AdalService } from './../providers/adal.service';
 import { Observable } from 'rxjs/Observable';
-import { DatabaseService } from './../providers/database.service';
+import { ReservationService } from './../providers/reservation.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   allReservations: Observable<any[]>;
-  constructor(public dbService: DatabaseService) { }
+  
+  constructor(
+    public resService: ReservationService,
+    public adalService: AdalService
+  ) { }
 
   ngOnInit() {
-    this.allReservations = this.dbService.getAllReservations();
+    this.allReservations = this.resService.getAllReservations();
+  }
+
+  public login() {
+    this.adalService.login();
   }
 
   public formatSlot(slot) {

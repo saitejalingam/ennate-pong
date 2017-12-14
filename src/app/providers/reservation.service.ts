@@ -1,17 +1,19 @@
+import { AdalService } from './adal.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class DatabaseService {
+export class ReservationService {
     private itemDoc: AngularFirestoreDocument<any>;
-    user: any = {
-        firstName: 'Veera Sai Teja',
-        lastName: 'Lingam',
-        email: 'vlingam@egen.solutions'
-    };
+    private user: any;
 
-    constructor(private db: AngularFirestore) { }
+    constructor(
+        private db: AngularFirestore,
+        private adalService: AdalService 
+    ) { 
+        this.user = adalService.userInfo;
+    }
 
     public getAllReservations(): Observable<any[]> {
         return this.db.collection('reservations',
@@ -22,7 +24,7 @@ export class DatabaseService {
     public getMyReservations(): Observable<any[]> {
         return this.db.collection('reservations',
             ref => ref.where('date', '>', this.getStartOfDay())
-                .where('email', '==', this.user.email))
+                .where('email', '==', this.user.userName))
             .snapshotChanges();
     }
 
@@ -30,9 +32,9 @@ export class DatabaseService {
         this.db.collection('reservations').add({
             date: Date.now(),
             slot: slot,
-            firstName: this.user.firstName,
-            lastName: this.user.lastName,
-            email: this.user.email
+            firstName: this.user.profile.given_name,
+            lastName: this.user.profile.family_name,
+            email: this.user.userName
         });
     }
 

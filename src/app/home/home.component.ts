@@ -1,12 +1,12 @@
+import { AdalService } from './../providers/adal.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from "rxjs/Subject";
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { DatabaseService } from './../providers/database.service';
+import { ReservationService } from './../providers/reservation.service';
 import { slots } from '../shared/app.constants';
-
 
 @Component({
   selector: 'app-home',
@@ -27,19 +27,19 @@ export class HomeComponent implements OnInit {
   myReservationsDocs: any[];
 
   constructor(
-    public dbService: DatabaseService,
-    private modalService: NgbModal
+    public resService: ReservationService,
+    private modalService: NgbModal,
+    public adalService: AdalService
   ) { }
 
   ngOnInit() {
-    this.dbService.getMyReservations()
+    this.resService.getMyReservations()
       .subscribe((result) => {
-        console.log(result.map(s => s.payload.doc.data()));
         this.myReservationsDocs = result;
         this.myReservations = result.map(s => s.payload.doc.data());
       });
 
-    this.dbService.getAllReservations()
+    this.resService.getAllReservations()
       .subscribe((result) => {
         this.allReservations = result;
 
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     if (this.myReservations.length >= 2) {
       this._error.next(`cannot reserve more than two slots per day!`);
     } else {
-      this.dbService.setReservation(slot);
+      this.resService.setReservation(slot);
       this._success.next(`${this.formatSlot(slot)} - reservation successful!`);
     }
   }
@@ -77,11 +77,15 @@ export class HomeComponent implements OnInit {
   public cancelReservation(reservation, cancelModal) {
     this.modalRef = this.modalService.open(cancelModal);
     this.modalRef.result.then((result) => {
-        this.dbService.cancelReservation(reservation);
-      }, (reason) => {});
+      this.resService.cancelReservation(reservation);
+    }, (reason) => { });
   }
 
   public formatSlot(slot) {
     return slot.start + ' - ' + slot.end;
+  }
+
+  public logout() {
+    this.adalService.logout();
   }
 }

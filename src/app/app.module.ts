@@ -1,3 +1,7 @@
+import { AuthenticationGuard } from './providers/authguard.service';
+import { LoginCallbackModule } from './login-callback/login-callback.module';
+import { ConfigService } from './providers/config.service';
+import { AdalService } from './providers/adal.service';
 import { AppRoutingModule } from './app.routing';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,7 +17,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
-import { DatabaseService } from './providers/database.service';
+import { ReservationService } from './providers/reservation.service';
 
 @NgModule({
   declarations: [
@@ -28,10 +32,16 @@ import { DatabaseService } from './providers/database.service';
     NgbModule.forRoot(),
     HomeModule,
     LoginModule,
+    LoginCallbackModule,
     RouterModule,
     AppRoutingModule
   ],
-  providers: [ DatabaseService ],
+  providers: [ 
+    ReservationService,
+    AdalService,
+    ConfigService,
+    AuthenticationGuard
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
