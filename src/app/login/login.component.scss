@@ -39,3 +39,15 @@
         color: gainsboro;
     }
 }
+
+@media (max-width: 767px) { 
+    .all-reservations {
+        height: calc(100vh - 375px);
+        overflow: scroll;
+    }
+
+    .login-footer {
+        position: fixed;
+        bottom: 20px;
+    }
+}
