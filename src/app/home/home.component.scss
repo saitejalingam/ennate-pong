@@ -4,9 +4,10 @@
     .slot-title {
         text-decoration: none;
         font-size: 0.9rem;
-        color: darkslategrey;    
+        color: darkslategrey;
+        margin-bottom: 0;    
 
-        .count {
+        .pull-right {
             float: right;
         }
     }
@@ -22,6 +23,10 @@
             border: 1px solid gold;
             width: 100%;
             resize: none;
+        }
+
+        .note {
+            font-size: 0.8rem;
         }
     }
 

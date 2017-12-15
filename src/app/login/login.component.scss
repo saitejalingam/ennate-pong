@@ -14,9 +14,10 @@
      .slot-title {
         text-decoration: none;
         font-size: 0.9rem;
-        color: darkslategrey;    
+        color: darkslategrey;
+        margin-bottom: 0;    
 
-        .count {
+        .pull-right {
             float: right;
         }
     }
@@ -33,21 +34,13 @@
             width: 100%;
             resize: none;
         }
+
+        .note {
+            font-size: 0.8rem;
+        }
     }
 
     .msg {
         color: gainsboro;
-    }
-}
-
-@media (max-width: 767px) { 
-    .all-reservations {
-        height: calc(100vh - 375px);
-        overflow: scroll;
-    }
-
-    .login-footer {
-        position: fixed;
-        bottom: 20px;
     }
 }

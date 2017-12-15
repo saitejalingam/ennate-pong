@@ -10,9 +10,7 @@
                     <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
                         <ngb-panel *ngFor="let reservation of myReservationsDocs">
                             <ng-template ngbPanelTitle>
-                                <span class="slot-title">
-                                    <b>{{ formatSlot(reservation.payload.doc.data().slot) }}</b>
-                                </span>
+                                <p class="slot-title"><b>{{ formatSlot(reservation.payload.doc.data().slot) }}</b></p>
                             </ng-template>
                             <ng-template ngbPanelContent>
                                 <div class="mb-2 reservation-summary">
@@ -31,17 +29,16 @@
                     <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
                         <ngb-panel *ngFor="let reservation of allReservations">
                             <ng-template ngbPanelTitle>
-                                <span class="slot-title">
-                                    <b>{{ formatSlot(reservation.slot) }}</b>
-                                </span>
+                                <p class="slot-title">
+                                    <b class="pull-right">{{ formatSlot(reservation.slot) }}</b>
+                                    <span>{{ reservation.firstName }}</span>
+                                </p>
                             </ng-template>
                             <ng-template ngbPanelContent>
                                 <div class="mb-2 reservation-summary">
-                                    <label class="mb-0">reserved by:</label>
-                                    <p>{{ reservation.firstName + ' ' + reservation.lastName }}</p>
-                                    <div *ngIf="reservation.slot.note">
-                                        <label class="mb-0">note:</label>
-                                    <p>{{ reservation.slot.note }}</p>
+                                    <div>
+                                    <label class="mb-0">note:</label>
+                                    <p class="note">{{ reservation.slot.note || 'no note added' }}</p>
                                     </div>
                                 </div>
                             </ng-template>
@@ -66,9 +63,7 @@
             <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
                 <ngb-panel *ngFor="let slot of timeSlots">
                     <ng-template ngbPanelTitle>
-                        <span class="slot-title">
-                            <b>{{ formatSlot(slot) }}</b>
-                        </span>
+                        <p class="slot-title"><b>{{ formatSlot(slot) }}</b></p>
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <div class="mb-2 reservation-summary">
